@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BridgeMe - Connect, Collaborate, Create</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(180deg, hsl(210, 40%, 98%) 0%, hsl(195, 30%, 96%) 100%);
+            color: hsl(215, 25%, 15%);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: hsla(0, 0%, 100%, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid hsl(214.3, 31.8%, 91.4%);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0.5rem;
+            background: linear-gradient(135deg, hsl(195, 85%, 45%) 0%, hsl(175, 70%, 50%) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, hsl(195, 85%, 45%) 0%, hsl(175, 70%, 50%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: hsl(215, 25%, 15%);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: hsl(195, 85%, 45%);
+            
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: hsl(215, 25%, 15%);
+        }
+
+        .btn-ghost:hover {
+            background: hsl(210, 30%, 94%);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, hsl(195, 85%, 45%) 0%, hsl(175, 70%, 50%) 100%);
+            color: white;
+            box-shadow: 0 8px 24px -4px hsl(195, 85%, 45%, 0.2);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            box-shadow: 0 16px 40px -8px hsl(195, 85%, 45%, 0.25);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 1.5rem 5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(195, 85%, 45%, 0.1);
+            color: hsl(195, 85%, 45%);
+            font-size: 0.875rem;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, hsl(195, 85%, 45%) 0%, hsl(175, 70%, 50%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: hsl(215, 20%, 45%);
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid hsl(195, 85%, 45%);
+            color: hsl(195, 85%, 45%);
+        }
+
+        .btn-outline:hover {
+            background: hsl(195, 85%, 45%);
+            color: white;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+        }
+
+        .hero-image-glow {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, hsl(195, 85%, 45%) 0%, hsl(175, 70%, 50%) 100%);
+            opacity: 0.2;
+            filter: blur(60px);
+            border-radius: 9999px;
+        }
+
+        .hero-image {
+            position: relative;
+            width: 100%;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .features-header h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .features-header p {
+            font-size: 1.25rem;
+            color: hsl(215, 20%, 45%);
+            max-width: 42rem;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            background: white;
+            border: 2px solid hsl(214.3, 31.8%, 91.4%);
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover {
+            border-color: hsl(195, 85%, 45%);
+            box-shadow: 0 16px 40px -8px hsl(195, 85%, 45%, 0.25);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, hsl(195, 85%, 45%) 0%, hsl(175, 70%, 50%) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 60px;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .feature-card:hover h3 {
+            color: hsl(195, 85%, 45%);
+        }
+
+        .feature-card p {
+            color: hsl(215, 20%, 45%);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 1.5rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, hsl(195, 85%, 45%) 0%, hsl(175, 70%, 50%) 50%, hsl(160, 65%, 55%) 100%);
+            padding: 4rem;
+            text-align: center;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .cta-card h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-card p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 42rem;
+            margin: 0 auto 2rem;
+        }
+
+        .btn-white {
+            background: white;
+            color: hsl(195, 85%, 45%);
+        }
+
+        .btn-white:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            border-top: 1px solid hsl(214.3, 31.8%, 91.4%);
+            padding: 3rem 1.5rem;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: hsl(215, 20%, 45%);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: hsl(195, 85%, 45%);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .cta-card {
+                padding: 2rem;
+            }
+
+            .cta-card h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-section">
+                <div class="logo-icon">B</div>
+                <span class="logo-text">BridgeMe</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="#" class="btn btn-ghost">Sign In</a>
+                <a href="#" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <span class="badge">✨ Connect. Collaborate. Create.</span>
+                <h1>Bridge the gap between <span class="gradient-text">people</span></h1>
+                <p>Experience seamless communication and collaboration. BridgeMe brings teams together with powerful tools designed for modern workflows.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary btn-large">Start Free Trial</a>
+                    <a href="#" class="btn btn-outline btn-large">Watch Demo</a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper">
+                <div class="hero-image-glow"></div>
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop" alt="BridgeMe Platform" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="features-header">
+            <h2>Why Choose <span class="gradient-text">BridgeMe</span>?</h2>
+            <p>Powerful features designed to enhance team collaboration and productivity</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3>Team Collaboration</h3>
+                <p>Work together seamlessly with real-time updates and notifications</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <h3>Instant Messaging</h3>
+                <p>Connect instantly with channels, direct messages, and threads</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
+                <h3>Lightning Fast</h3>
+                <p>Experience blazing-fast performance with optimized infrastructure</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <h3>Secure & Private</h3>
+                <p>Enterprise-grade security to keep your data safe and protected</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-card">
+            <h2>Ready to bridge the gap?</h2>
+            <p>Join thousands of teams already using BridgeMe to revolutionize their workflow</p>
+            <a href="#" class="btn btn-white btn-large">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="logo-section">
+                <div class="logo-icon" style="width: 32px; height: 32px; font-size: 1rem;">B</div>
+                <span style="font-size: 1.25rem; font-weight: bold;">BridgeMe</span>
+            </div>
+            <p style="color: hsl(215, 20%, 45%);">© 2024 BridgeMe. A Capstone Project.</p>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
